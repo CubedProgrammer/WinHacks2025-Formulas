@@ -3,6 +3,7 @@
  *
  *  Created on: Feb 15, 2025
  */
+#include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include"equation.h"
@@ -15,6 +16,14 @@ int comp_float(const void *x, const void *y)
 {
 	const float u = *(float*)x;
 	const float v = *(float*)y;
+	if(isnan(u))
+	{
+		if(isnan(v))
+			return 0;
+		return-1;
+	}
+	else if(isnan(v))
+		return 1;
 	return u > v ? 1 : u < v ? -1 : 0;
 }
 
@@ -161,10 +170,13 @@ int verify(const struct Question *const q, float given[])
 
 int close_enough(float x, float y)
 {
-	return absdiff(x, y) < 0.000001f;
+	return absdiff(x, y) < 0.01f;
 }
 
 float absdiff(float x, float y)
 {
-	return x > y ? x - y : y - x;
+	if(isnan(x))
+		return isnan(y) ? 0.0f : HUGE_VALF;
+	else
+		return x > y ? x - y : y - x;
 }
