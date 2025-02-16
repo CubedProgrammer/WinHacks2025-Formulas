@@ -67,21 +67,23 @@ int init_question(struct Question *const this, const enum QuestionType t)
 
 void print_system_of_equation(char *str, const float matrix[], const unsigned cnt)
 {
-	const char vars[] = "xyz";
-	char fmt[] = "+%dx";
+	static const char vars[] = "xyz";
+	char fmt[] = "+%d ";
 	int started = 0;
-	for(int i = 0; i < cnt; ++i)
+	const unsigned numcnt = cnt * (cnt + 1);
+	for(unsigned i = 0; i < numcnt; ++i)
 	{
 		int val = matrix[i];
 		int col = i % (cnt + 1);
-		fmt[3] = vars[col];
 		if(col == cnt)
 		{
-			str += sprintf(str, "=%d\n", val);
+			str += sprintf(str, "=%d\r\n", val);
 			started = 0;
+			continue;
 		}
 		else if(val == 0)
 			continue;
+		fmt[3] = vars[col];
 		switch(val)
 		{
 			case -1:
