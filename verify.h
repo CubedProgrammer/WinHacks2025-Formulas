@@ -24,8 +24,10 @@ enum QuestionType
 };
 
 int init_question(struct Question *const this, const enum QuestionType t);
-void print_system_of_equation(char *const str, const float matrix[], int cnt);
-int verify(const struct Question *const q, const float given[]);
+void print_system_of_equation(char *const str, const float matrix[], const unsigned cnt);
+void print_polynomial_equation(char *str, const float *const first, const float *const last);
+char *print_number(char *str, const int number, char variable, const int printzero, const int prefix);
+int verify(const struct Question *const q, float given[]);
 int close_enough(float x, float y);
 float absdiff(float x, float y);
 
