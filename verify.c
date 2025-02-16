@@ -70,6 +70,11 @@ int init_question(struct Question *const this, const enum QuestionType t)
 		default:
 			return 1;
 	}
+	for(float *it = this->ans; it != this->ans + this->cnt; ++it)
+	{
+		if(isinf(*it))
+			*it = NAN;
+	}
 	qsort(this->ans, this->cnt, sizeof(float), comp_float);
 	return 0;
 }
